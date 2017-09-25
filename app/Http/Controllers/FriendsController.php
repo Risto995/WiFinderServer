@@ -36,6 +36,12 @@ class FriendsController extends Controller
         if(!$request->hasHeader('api') || User::where('api_token', $request->header('api'))->first() == null)
             throw new AccessDeniedException('You need to provide a valid API token');
         $user = User::where('api_token', $request->header('api'))->first();
+
+        if(Friends::where('first_user', $user->id)->where('second_user', $request->get('friend_id'))->first() != null
+            || Friends::where('first_user', $request->get('friend_id'))->where('second_user', $user->id)->first() != null ) {
+            throw new ErrorException('This friendship already exists!');
+        }
+        
         $friends = new Friends();
         $friends->first_user = $user->id;
         $friends->second_user = $request->get('friend_id');
