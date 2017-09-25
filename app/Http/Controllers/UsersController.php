@@ -70,6 +70,13 @@ class UsersController extends Controller
         return User::where('api_token', $api_token)->first();
     }
 
+    public static function getOtherUser(Request $request, $id)
+    {
+        if (!$request->hasHeader('api') || User::where('api_token', $request->header('api'))->first() == null)
+            throw new AccessDeniedException('You need to provide a valid API token');
+        return User::where('id', $id)->first();
+    }
+
     public static function addPoints(Request $request)
     {
         if (!$request->hasHeader('api') || User::where('api_token', $request->header('api'))->first() == null)

@@ -41,6 +41,10 @@ Route::get('/user', function (Request $request) {
     return UsersController::getUser($request);
 });
 
+Route::get('/user/{id}', function (Request $request, $id) {
+    return UsersController::getOtherUser($request, $id);
+});
+
 Route::post('/user/points/add', function (Request $request) {
     return UsersController::addPoints($request);
 });
