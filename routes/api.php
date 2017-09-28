@@ -21,6 +21,14 @@ use App\Http\Controllers\WiFiController;
     return $request->user();
 });*/
 
+Route::get('/user/friends', function (Request $request) {
+    return FriendsController::getUsersFriends($request);
+});
+
+Route::get('/user/wifi', function (Request $request) {
+    return WiFiController::getWiFis($request);
+});
+
 Route::get('/test', function (Request $request) {
     return "Test123";
 });
@@ -57,10 +65,6 @@ Route::post('/location', function (Request $request){
     return UsersController::postCurrentLocation($request);
 });
 
-Route::get('/user/friends', function (Request $request) {
-    return FriendsController::getUsersFriends($request);
-});
-
 Route::post('/user/friends', function (Request $request) {
     return FriendsController::addFriend($request);
 });
@@ -71,10 +75,6 @@ Route::post('/user/friends/remove', function (Request $request) {
 
 Route::get('/wifi', function (Request $request) {
     return WiFiController::getAllWifis($request);
-});
-
-Route::get('/user/wifi', function (Request $request) {
-    return WiFiController::getWiFis($request);
 });
 
 Route::post('/wifi', function (Request $request) {
