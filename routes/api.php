@@ -25,8 +25,16 @@ Route::get('/user/friends', function (Request $request) {
     return FriendsController::getUsersFriends($request);
 });
 
+Route::post('/location_friends', function (Request $request) {
+    return FriendsController::locationFriends($request);
+});
+
 Route::get('/user/wifi', function (Request $request) {
     return WiFiController::getWiFis($request);
+});
+
+Route::post('/user/location_wifi', function (Request $request) {
+    return WiFiController::locationWifis($request);
 });
 
 Route::get('/test', function (Request $request) {
@@ -75,6 +83,10 @@ Route::post('/user/friends/remove', function (Request $request) {
 
 Route::get('/wifi', function (Request $request) {
     return WiFiController::getAllWifis($request);
+});
+
+Route::post('/location_wifi', function (Request $request) {
+    return WiFiController::locationAllWifis($request);
 });
 
 Route::post('/wifi', function (Request $request) {

@@ -38,11 +38,39 @@ class WiFiController extends Controller
         return $user->wifis()->get();
     }
 
+    public static function locationWifis(Request $request)
+    {
+        if(!$request->hasHeader('api') || User::where('api_token', $request->header('api'))->first() == null)
+            throw new AccessDeniedException('You need to provide a valid API token');
+        $user = User::where('api_token', $request->header('api'))->first();
+
+        $user->latitude = $request->get('latitude');
+        $user->longitude = $request->get('longitude');
+
+        $user->save();
+
+        return $user->wifis()->get();
+    }
+
     public static function getAllWifis(Request $request)
     {
         if(!$request->hasHeader('api') || User::where('api_token', $request->header('api'))->first() == null)
             throw new AccessDeniedException('You need to provide a valid API token');
         $user = User::where('api_token', $request->header('api'))->first();
+
+        return WiFi::all();
+    }
+
+    public static function locationAllWifis(Request $request)
+    {
+        if(!$request->hasHeader('api') || User::where('api_token', $request->header('api'))->first() == null)
+            throw new AccessDeniedException('You need to provide a valid API token');
+        $user = User::where('api_token', $request->header('api'))->first();
+
+        $user->latitude = $request->get('latitude');
+        $user->longitude = $request->get('longitude');
+
+        $user->save();
 
         return WiFi::all();
     }
