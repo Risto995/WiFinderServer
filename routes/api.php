@@ -92,3 +92,7 @@ Route::post('/location_wifi', function (Request $request) {
 Route::post('/wifi', function (Request $request) {
     return WiFiController::postWiFi($request);
 });
+
+Route::get('/users', function(Request $request){
+   return \App\User::all(); 
+});
