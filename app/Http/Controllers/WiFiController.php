@@ -18,8 +18,9 @@ class WiFiController extends Controller
         $wifi = new WiFi();
         $wifi->name = $request->get('name');
 
-        if ($request->has('password'))
+        if ($request->has('password')){
             $wifi->password = $request->get('password');
+        }
 
         $wifi->latitude = $request->get('latitude');
         $wifi->longitude = $request->get('longitude');
@@ -38,7 +39,6 @@ class WiFiController extends Controller
         $wifis = $user->wifis()->get();
         foreach ($wifis as $wifi){
             $wifi->user = User::find($wifi->created_by)->first()->name;
-            var_dump(User::find($wifi->created_by)->first()->name);
         }
 
         return $wifis;
@@ -93,7 +93,6 @@ class WiFiController extends Controller
 
         foreach ($wifis as $wifi){
             $wifi->user = User::find($wifi->created_by)->first()->name;
-            var_dump(User::find($wifi->created_by)->first()->name);
         }
 
         return $wifis;
