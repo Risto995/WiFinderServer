@@ -26,6 +26,9 @@ class WiFiController extends Controller
         $wifi->longitude = $request->get('longitude');
         $wifi->created_by = $user->id;
         $wifi->save();
+        
+        $user->points += 10;
+        $user->save();
 
         return $wifi;
     }
