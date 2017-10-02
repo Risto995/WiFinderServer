@@ -43,7 +43,7 @@ class WiFiController extends Controller
 
         $wifis = $user->wifis()->get();
         foreach ($wifis as $wifi){
-            $wifi->user = User::find($wifi->created_by)->first()->name;
+            $wifi->user = User::find($wifi->created_by)->name;
         }
 
         return $wifis;
@@ -62,7 +62,7 @@ class WiFiController extends Controller
 
         $wifis = $user->wifis()->get();
         foreach ($wifis as $wifi){
-            $wifi->user = User::find($wifi->created_by)->first()->name;
+            $wifi->user = User::find($wifi->created_by)->name;
         }
 
         return $wifis;
@@ -77,7 +77,7 @@ class WiFiController extends Controller
         $wifis = WiFi::all();
 
         foreach ($wifis as $wifi){
-            $wifi->user = User::find($wifi->created_by)->first()->name;
+            $wifi->user = User::find($wifi->created_by)->name;
         }
 
         return $wifis;
@@ -97,7 +97,7 @@ class WiFiController extends Controller
         $wifis = WiFi::all();
 
         foreach ($wifis as $wifi){
-            $wifi->user = User::find($wifi->created_by)->first()->name;
+            $wifi->user = User::find($wifi->created_by)->name;
         }
 
         return $wifis;
