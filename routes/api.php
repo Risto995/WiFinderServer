@@ -96,3 +96,7 @@ Route::post('/wifi', function (Request $request) {
 Route::get('/users', function(Request $request){
    return \App\User::all(); 
 });
+
+Route::get('/user_friends', function(Request $request){
+    return FriendsController::getUserWithFriends($request);
+});

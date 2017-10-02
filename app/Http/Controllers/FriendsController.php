@@ -77,6 +77,29 @@ class FriendsController extends Controller
         return $friends;
     }
 
+    public static function getUserWithFriends(Request $request)
+    {
+        if(!$request->hasHeader('api') || User::where('api_token', $request->header('api'))->first() == null)
+            throw new AccessDeniedException('You need to provide a valid API token');
+        $user = User::where('api_token', $request->header('api'))->first();
+        $friendsRelationship = Friends::where('first_user', $user->id)->orWhere('second_user', $user->id)->get();
+        $friends = [];
+        foreach ($friendsRelationship as $frR){
+            $id = null;
+            if($frR->first_user == $user->id)
+                $id = $frR->second_user;
+            else
+                $id = $frR->first_user;
+            $f = User::where('id', $id)->first();
+            array_push($friends, $f);
+        }
+        if($friends == null)
+            throw new ErrorException('This user has no friends :(');
+
+        array_push($friends, $user);
+        return $friends;
+    }
+
     public static function removeFriend(Request $request)
     {
         if(!$request->hasHeader('api') || User::where('api_token', $request->header('api'))->first() == null)
